@@ -4,27 +4,34 @@ import java.util.List;
 
 import ar.edu.unahur.obj2.agencia.Excepciones.DescuentoInvalidoException;
 import ar.edu.unahur.obj2.agencia.Excepciones.TarifaNegativaException;
-import ar.edu.unahur.obj2.agencia.Servicios.Servicio;
+import ar.edu.unahur.obj2.agencia.Oferta.Oferta;
 
-public abstract class Paquete {
-    private final List<Servicio> servicios;
+public class Paquete implements Oferta {
+    private final List<Oferta> packOfertas;
     private String nombre;
     private double descuento;
 
-    public Paquete(String nombre, double descuento) {
-        this.servicios = new ArrayList<>();
+    public Paquete(String nombre, double descuento,Oferta... ofertas) {
+        this.packOfertas = new ArrayList<>(List.of(ofertas));
         this.nombre = nombre;
         this.descuento = descuentoEsValido(descuento);
+
     }
+    @Override 
     public double getPrecio() {
         double precioTotal = 0;
-        for (Servicio servicio : servicios) {
-            precioTotal += servicio.getTarifa();
+        for (Oferta oferta : packOfertas) {
+            precioTotal += oferta.getPrecio();
         }
         return precioTotal * (1 - descuento / 100);
     }
+    @Override 
     public int cantidadDeServicios() {
-        return servicios.size();
+        int totalServicios = 0;
+        for (Oferta oferta : packOfertas) {
+            totalServicios += oferta.cantidadDeServicios();
+        }
+        return totalServicios;
     }
     public final double descuentoEsValido(double descuento) {
         if (descuento < 0 || descuento > 100) {
@@ -36,9 +43,10 @@ public abstract class Paquete {
     public double getDescuento() {
         return descuento;
     }
+    @Override 
     public boolean tieneServicio(String nombre) {
-        for (Servicio servicio : servicios) {
-            if (servicio.tieneServicio(nombre)) {
+        for (Oferta oferta : packOfertas) {
+            if (oferta.tieneServicio(nombre)) {
                 return true;
             }
         }
@@ -51,14 +59,14 @@ public abstract class Paquete {
         return precio;
     }
 
-    public List<Servicio> getServicios() {
-        return servicios;
+    public List<Oferta> getOfertas() {
+        return packOfertas;
     }
 
-    public void añadirServicio(Servicio servicio) {
-        servicios.add(servicio);
+    public void añadirOferta(Oferta oferta) {
+        packOfertas.add(oferta);
     }
-
+    @Override
     public String getDescripcion() {
         return nombre;
     }
