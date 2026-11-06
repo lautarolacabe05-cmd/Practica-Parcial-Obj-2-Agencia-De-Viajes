@@ -14,7 +14,7 @@ public class SeguroDeCancelacion extends Extras {
 
     @Override
     public double precioExtra() {
-        return oferta.getPrecio() * 0.1;
+        return oferta.getPrecio() * 1.1;
     }
     
 }
