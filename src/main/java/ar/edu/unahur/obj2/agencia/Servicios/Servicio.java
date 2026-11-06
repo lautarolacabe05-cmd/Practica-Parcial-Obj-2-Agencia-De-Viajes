@@ -19,12 +19,16 @@ public class Servicio implements Oferta{
         return tarifa;
     }
 
+    public void setTarifa(double tarifa) {
+        this.tarifa = tarifaNoEsNegativa(tarifa);
+    }
+
     @Override 
     public boolean tieneServicio(String nombre) {
         return this.nombre.equals(nombre);
     }
     @Override
-    public double getPrecio() {
+    public double getTarifa() {
         return tarifa;
     }
     @Override

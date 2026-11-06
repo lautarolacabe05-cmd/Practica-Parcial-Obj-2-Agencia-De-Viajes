@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.unahur.obj2.agencia.Excepciones.DescuentoInvalidoException;
+import ar.edu.unahur.obj2.agencia.Excepciones.ItemNoIncluidoException;
 import ar.edu.unahur.obj2.agencia.Excepciones.TarifaNegativaException;
 import ar.edu.unahur.obj2.agencia.Oferta.Oferta;
 
@@ -18,12 +19,12 @@ public class Paquete implements Oferta {
 
     }
     @Override 
-    public double getPrecio() {
-        double precioTotal = 0;
+    public double getTarifa() {
+        double tarifaTotal = 0;
         for (Oferta oferta : packOfertas) {
-            precioTotal += oferta.getPrecio();
+            tarifaTotal += oferta.getTarifa();
         }
-        return precioTotal * (1 - descuento / 100);
+        return tarifaTotal * (1 - descuento / 100);
     }
     @Override 
     public int cantidadDeServicios() {
@@ -65,6 +66,12 @@ public class Paquete implements Oferta {
 
     public void añadirOferta(Oferta oferta) {
         packOfertas.add(oferta);
+    }
+    public void eliminarOferta(Oferta oferta) {
+        if (!packOfertas.contains(oferta)) {
+            throw new ItemNoIncluidoException("La oferta no está en el paquete");
+        }
+        packOfertas.remove(oferta);
     }
     @Override
     public String getDescripcion() {

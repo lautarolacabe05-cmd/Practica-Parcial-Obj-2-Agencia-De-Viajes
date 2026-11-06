@@ -13,7 +13,7 @@ public class TrasladoPrivado extends Extras {
     }
 
     @Override
-    public double precioExtra() {
+    public double tarifaExtra() {
         return 15000;
     }
     

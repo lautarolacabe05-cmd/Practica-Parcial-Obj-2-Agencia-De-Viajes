@@ -13,7 +13,7 @@ public class AsistenciaAlViajero extends Extras {
     }
 
     @Override
-    public double precioExtra() {
+    public double tarifaExtra() {
         return 8000;
     }
     

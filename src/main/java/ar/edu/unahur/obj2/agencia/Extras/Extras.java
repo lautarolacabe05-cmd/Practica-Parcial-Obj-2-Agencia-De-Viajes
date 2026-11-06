@@ -10,8 +10,8 @@ public abstract class Extras implements Oferta {
     }
 
     @Override 
-    public double getPrecio() {
-        return oferta.getPrecio() + precioExtra();
+    public double getTarifa() {
+        return oferta.getTarifa() + tarifaExtra();
     }
     @Override
     public String getDescripcion() {
@@ -27,5 +27,5 @@ public abstract class Extras implements Oferta {
     }
 
     public abstract String nombreExtra();
-    public abstract double precioExtra();
+    public abstract double tarifaExtra();
 }
