@@ -21,7 +21,9 @@ public abstract class Servicio {
     public double getTarifa() {
         return tarifa;
     }
-
+    public boolean tieneServicio(String nombre) {
+        return this.nombre.equals(nombre);
+    }
     public int cantidadDeServicios() {
         return 1;
     }
